@@ -1,7 +1,16 @@
-/**
- * Created by Sir.Dominar on 4/10/2017.
- */
+import javax.swing.*;
+
 public class ReverseAString
 {
-    //This is a test.
+    public static void main(String[]args)
+    {
+        SwingUtilities.invokeLater(new Runnable()
+        {
+            @Override
+            public void run()
+            {
+                new MainFrame();
+            }
+        });
+    }
 }
