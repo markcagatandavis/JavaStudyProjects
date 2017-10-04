@@ -3,3 +3,6 @@ This is a repository containing all mini projects for studying. Projects very fr
 
 
 Inside each folder contains a new Java Project used for practice and learning.
+
+JSP = Java Study Project
+001 = Number of Project
