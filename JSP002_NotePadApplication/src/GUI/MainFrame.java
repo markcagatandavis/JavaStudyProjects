@@ -5,8 +5,10 @@ import java.awt.*;
 
 public class MainFrame extends JFrame
 {
-    private JTextField textField;
+    private MainTextField mainTextField;
     private ToolBar toolBar;
+
+    private JPanel mainPanel;
 
     public MainFrame()
     {
@@ -14,18 +16,25 @@ public class MainFrame extends JFrame
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setSize(1020,1080);
         getContentPane().setBackground(Color.LIGHT_GRAY);
-        setVisible(true);
         setLocationRelativeTo(null);
-        setLayout(new BorderLayout());
 
-        textField = new JTextField();
-        textField.setBackground(Color.white);
-        textField.setSize(980,980);
-        textField.setVisible(true);
-        add(textField, BorderLayout.SOUTH);
+        //Create panel for everything to sit on.
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new BorderLayout());
+        add(mainPanel);
 
+        //Add text field to panel.
+        mainTextField = new MainTextField();
+        mainPanel.add(mainTextField);
 
+        //Add panel to main area.
         toolBar = new ToolBar();
-        add(toolBar, BorderLayout.NORTH);
+        mainPanel.add(toolBar, BorderLayout.NORTH);
+
+        //Pack and show components.
+        pack();
+        setVisible(true);
+
+
     }
 }
