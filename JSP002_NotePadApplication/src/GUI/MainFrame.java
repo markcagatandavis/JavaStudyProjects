@@ -6,6 +6,7 @@ import java.awt.*;
 public class MainFrame extends JFrame
 {
     private JTextField textField;
+    private ToolBar toolBar;
 
     public MainFrame()
     {
@@ -23,5 +24,8 @@ public class MainFrame extends JFrame
         textField.setVisible(true);
         add(textField, BorderLayout.SOUTH);
 
+
+        toolBar = new ToolBar();
+        add(toolBar, BorderLayout.NORTH);
     }
 }
