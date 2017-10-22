@@ -18,6 +18,7 @@ public class ToolBar extends JPanel
 
         //Set's layout of the toolbar.
         setLayout(new FlowLayout(FlowLayout.LEFT));
+        setBackground(Color.darkGray);
 
         //This section adds components to toolbar.
         add(fileButton);

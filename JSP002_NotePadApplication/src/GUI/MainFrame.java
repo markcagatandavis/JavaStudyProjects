@@ -5,33 +5,36 @@ import java.awt.*;
 
 public class MainFrame extends JFrame
 {
-    private MainTextField mainTextField;
+    private MainTextArea mainTextArea;
     private ToolBar toolBar;
 
     private JPanel mainPanel;
 
     public MainFrame()
     {
+        //MainFrame Configurations.
         super("Notepad Express");
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setSize(1020,1080);
-        getContentPane().setBackground(Color.LIGHT_GRAY);
+        setDefaultCloseOperation(MainFrame.EXIT_ON_CLOSE);
+        setSize(1280,1080);
+        setResizable(true);
+        getContentPane().setBackground(Color.BLACK);
         setLocationRelativeTo(null);
 
         //Create panel for everything to sit on.
         mainPanel = new JPanel();
+        mainPanel.setBackground(Color.LIGHT_GRAY);
         mainPanel.setLayout(new BorderLayout());
         add(mainPanel);
-
-        //Add text field to panel.
-        mainTextField = new MainTextField();
-        mainPanel.add(mainTextField);
 
         //Add panel to main area.
         toolBar = new ToolBar();
         mainPanel.add(toolBar, BorderLayout.NORTH);
 
-        //Pack and show components.
+        //Add text Area to panel.
+        mainTextArea = new MainTextArea();
+        mainPanel.add(mainTextArea);
+
+        //Set all above visible.
         pack();
         setVisible(true);
 
