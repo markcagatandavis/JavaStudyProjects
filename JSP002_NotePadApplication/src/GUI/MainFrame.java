@@ -15,14 +15,13 @@ public class MainFrame extends JFrame
         //MainFrame Configurations.
         super("Notepad Express");
         setDefaultCloseOperation(MainFrame.EXIT_ON_CLOSE);
-        setSize(1280,1080);
-        setResizable(true);
+        setSize(900,800);
+        setResizable(false);
         getContentPane().setBackground(Color.BLACK);
         setLocationRelativeTo(null);
 
         //Create panel for everything to sit on.
         mainPanel = new JPanel();
-        mainPanel.setBackground(Color.LIGHT_GRAY);
         mainPanel.setLayout(new BorderLayout());
         add(mainPanel);
 
@@ -37,7 +36,5 @@ public class MainFrame extends JFrame
         //Set all above visible.
         pack();
         setVisible(true);
-
-
     }
 }

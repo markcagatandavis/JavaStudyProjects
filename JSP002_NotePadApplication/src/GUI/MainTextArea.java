@@ -29,7 +29,7 @@ public class MainTextArea extends JPanel
 
         //Add scroll pane
         JScrollPane scroll = new JScrollPane(textArea);
-        scroll.setPreferredSize(new Dimension(1280,960));
+        scroll.setPreferredSize(new Dimension(900,800));
         scroll.setVisible(true);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         textPanel.add(scroll);
