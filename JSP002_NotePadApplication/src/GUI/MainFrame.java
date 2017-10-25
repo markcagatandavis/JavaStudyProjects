@@ -27,7 +27,7 @@ public class MainFrame extends JFrame
 
         //Add panel to main area.
         toolBar = new ToolBar();
-        mainPanel.add(toolBar, BorderLayout.NORTH);
+        setJMenuBar(toolBar.createMenuBar());
 
         //Add text Area to panel.
         mainTextArea = new MainTextArea();
