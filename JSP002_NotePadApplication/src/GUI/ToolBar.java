@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 //This class is responsible for the toolbar
 public class ToolBar extends JPanel
 {
+    private JFileChooser fileChooser;
+
     public ToolBar ()
 
     {
@@ -16,8 +18,9 @@ public class ToolBar extends JPanel
 
     public JMenuBar createMenuBar ()
     {
-        //Create Menu Bar here.
-        JMenuBar menuBar = new JMenuBar();
+
+        JMenuBar menuBar = new JMenuBar(); //Create menu bar Instances
+        fileChooser = new JFileChooser(); //Create generic fileChooser
 
         /////////////////Create File Menu///////////////////////////////
         JMenu fileMenu = new JMenu("File");
@@ -59,12 +62,41 @@ public class ToolBar extends JPanel
         /////////////////Adding Mnemonic's & Accelerator's////////////////////////////////
         ////File Menu////
         fileMenu.setMnemonic(KeyEvent.VK_F);
+
+        //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+
+        //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
+        openDataItem.addActionListener(e -> {
+            if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
+            System.out.println(fileChooser.getSelectedFile());
+        });
+
+        //Save File
         saveDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+        saveDataItem.addActionListener(e -> {
+            if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION);
+            System.out.println(fileChooser.getSelectedFile());
+        });
+
+        //Print File
         printDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+
+        //Exit Application
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
-        exitItem.addActionListener(e -> System.exit(0));
+        exitItem.addActionListener((ActionEvent e) -> {
+            int action = JOptionPane.showConfirmDialog(null,
+                    "Confirmation: Close Application?",
+                    "EXIT APPLICATION?", JOptionPane.OK_CANCEL_OPTION);
+
+            if (action == JOptionPane.OK_OPTION)
+            {
+                System.exit(0);
+            }
+        });
+
+
 
         ////Font Menu////
         fontMenu.setMnemonic(KeyEvent.VK_T);
