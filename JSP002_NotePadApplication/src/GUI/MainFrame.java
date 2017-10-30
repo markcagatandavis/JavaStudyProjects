@@ -1,6 +1,7 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -9,8 +10,6 @@ public class MainFrame extends JFrame
 {
     private MainTextArea mainTextArea;
     private ToolBar toolBar;
-
-    private JPanel mainPanel;
 
     public MainFrame()
     {
@@ -31,23 +30,18 @@ public class MainFrame extends JFrame
                 }
             }
         });
-        setSize(900,800);
-        setResizable(false);
+        setResizable(true);
         getContentPane().setBackground(Color.BLACK);
+        setMinimumSize(new Dimension(800,800));
         setLocationRelativeTo(null);
 
-        //Create panel for everything to sit on.
-        mainPanel = new JPanel();
-        mainPanel.setLayout(new BorderLayout());
-        add(mainPanel);
-
-        //Add panel to main area.
+        //Add menu to main area.
         toolBar = new ToolBar();
         setJMenuBar(toolBar.createMenuBar());
 
         //Add text Area to panel.
         mainTextArea = new MainTextArea();
-        mainPanel.add(mainTextArea);
+        add(mainTextArea);
 
         //Set all above visible.
         pack();
