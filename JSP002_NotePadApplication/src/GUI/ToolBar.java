@@ -2,13 +2,16 @@ package GUI;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
 
 //This class is responsible for the toolbar
 public class ToolBar extends JPanel
 {
     private JFileChooser fileChooser;
+    private MainFrame mainFrame;
 
     public ToolBar ()
 
@@ -21,6 +24,7 @@ public class ToolBar extends JPanel
 
         JMenuBar menuBar = new JMenuBar(); //Create menu bar Instances
         fileChooser = new JFileChooser(); //Create generic fileChooser
+
 
         /////////////////Create File Menu///////////////////////////////
         JMenu fileMenu = new JMenu("File");
@@ -68,9 +72,26 @@ public class ToolBar extends JPanel
 
         //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
-        openDataItem.addActionListener(e -> {
+        openDataItem.addActionListener((ActionEvent e) -> {
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
+
+            File file = fileChooser.getSelectedFile(); //Create selectFile
+            String filename = file.getAbsolutePath(); //Create Filename String for path
+
+            try
+            {
+                FileReader fileReader = new FileReader(filename);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+
+
+            }
+            catch(Exception ev)
+            {
+                JOptionPane.showMessageDialog(null,ev);
+            }
+
+
         });
 
         //Save File
