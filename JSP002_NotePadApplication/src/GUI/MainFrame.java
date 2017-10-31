@@ -8,11 +8,18 @@ import java.awt.event.WindowEvent;
 
 public class MainFrame extends JFrame
 {
-    private MainTextArea mainTextArea;
     private ToolBar toolBar;
+    private JTextArea textArea;
+    private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public MainFrame()
     {
+        /*
+            *
+            * This section creates the main JFrame and add's components to JFrame.
+            *
+        */
+
         //MainFrame Configurations.
         super("Notepad Express");
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -39,12 +46,34 @@ public class MainFrame extends JFrame
         toolBar = new ToolBar();
         setJMenuBar(toolBar.createMenuBar());
 
-        //Add text Area to panel.
-        mainTextArea = new MainTextArea();
-        add(mainTextArea);
+        //Add Main Text Area to JFrame
+        MainTextArea();
 
-        //Set all above visible.
+        //Set all above visible and packs.
         pack();
         setVisible(true);
+    }
+
+    public void MainTextArea()
+    {
+        /*
+            * This section creates the main Text Area component.
+        */
+        textArea = new JTextArea();
+        textArea.setFont(defaultFont);
+        textArea.setBackground(Color.white);
+        textArea.setEditable(true);
+        textArea.setLineWrap(true);
+        textArea.setVisible(true);
+
+        //Add scroll pane
+        JScrollPane scroll = new JScrollPane(textArea);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scroll.setVisible(true);
+        add(scroll);
+
+        Border border = BorderFactory.createLineBorder(Color.BLACK);
+        scroll.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(2,2,2,2)));
+
     }
 }
