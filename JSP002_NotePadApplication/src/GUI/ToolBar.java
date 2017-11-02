@@ -1,23 +1,17 @@
 package GUI;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
+import java.io.*;
+
+import static GUI.MainFrame.textArea;
 
 //This class is responsible for the toolbar
-public class ToolBar extends JPanel
+public class ToolBar  extends JPanel
 {
     private JFileChooser fileChooser;
-    private MainFrame mainFrame;
-
-    public ToolBar ()
-
-    {
-
-    }
 
     public JMenuBar createMenuBar ()
     {
@@ -73,25 +67,24 @@ public class ToolBar extends JPanel
         //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         openDataItem.addActionListener((ActionEvent e) -> {
+
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
 
-            File file = fileChooser.getSelectedFile(); //Create selectFile
-            String filename = file.getAbsolutePath(); //Create Filename String for path
-
             try
             {
+                File file = fileChooser.getSelectedFile(); //Create selectFile
+                String filename = file.getAbsolutePath(); //Create Filename String for path
                 FileReader fileReader = new FileReader(filename);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
-
-
+                textArea.read(bufferedReader,null);
+                bufferedReader.close();
+                textArea.requestFocus();
             }
             catch(Exception ev)
             {
                 JOptionPane.showMessageDialog(null,ev);
             }
-
-
         });
 
         //Save File
@@ -99,6 +92,20 @@ public class ToolBar extends JPanel
         saveDataItem.addActionListener(e -> {
             if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
+
+            try
+            {
+                FileWriter fileWriter = new FileWriter("C:\\Users\\Mark.Davis\\Desktop\\TestFile.txt");
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                textArea.write(bufferedWriter);
+                bufferedWriter.close();
+                textArea.setText("");
+                textArea.requestFocus();
+            }
+            catch(Exception ev)
+            {
+                JOptionPane.showMessageDialog(null,ev);
+            }
         });
 
         //Print File
@@ -116,8 +123,6 @@ public class ToolBar extends JPanel
                 System.exit(0);
             }
         });
-
-
 
         ////Font Menu////
         fontMenu.setMnemonic(KeyEvent.VK_T);

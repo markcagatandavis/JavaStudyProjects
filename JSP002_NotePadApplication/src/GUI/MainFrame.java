@@ -5,11 +5,13 @@ import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.BufferedReader;
+import java.io.IOException;
 
 public class MainFrame extends JFrame
 {
     private ToolBar toolBar;
-    private JTextArea textArea;
+    public static JTextArea textArea;
     private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public MainFrame()
