@@ -5,6 +5,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
 import java.io.*;
 
 import static GUI.MainFrame.textArea;
@@ -12,10 +16,7 @@ import static GUI.MainFrame.textArea;
 //This class is responsible for the toolbar
 public class ToolBar  extends JMenuBar
 {
-    private MainFrame mainFrame;
-
     private JFileChooser fileChooser;
-
 
     public JMenuBar createMenuBar ()
     {
@@ -67,11 +68,7 @@ public class ToolBar  extends JMenuBar
 
         //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        newDataItem.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textArea.setText("");
-            }
-        });
+        newDataItem.addActionListener(e -> textArea.setText(""));
 
         //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -119,6 +116,31 @@ public class ToolBar  extends JMenuBar
 
         //Print File
         printDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+        printDataItem.addActionListener(e -> {
+
+            PrinterJob printJob = PrinterJob.getPrinterJob();
+            printJob.setJobName(" Print Component ");
+
+            printJob.setPrintable ((pg, pf, pageNum) -> {
+                if (pageNum > 0) return Printable.NO_SUCH_PAGE;
+
+                Graphics2D g2 = (Graphics2D) pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                textArea.paint(g2);
+                return Printable.PAGE_EXISTS;
+            });
+
+            if (printJob.printDialog() == false) return;
+
+            try
+            {
+                printJob.print();
+            }
+            catch (PrinterException ex)
+            {
+                // handle exception
+            }
+        });
 
         //Exit Application
         exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
