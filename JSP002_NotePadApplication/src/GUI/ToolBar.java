@@ -3,15 +3,19 @@ package GUI;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.*;
 
 import static GUI.MainFrame.textArea;
 
 //This class is responsible for the toolbar
-public class ToolBar  extends JPanel
+public class ToolBar  extends JMenuBar
 {
+    private MainFrame mainFrame;
+
     private JFileChooser fileChooser;
+
 
     public JMenuBar createMenuBar ()
     {
@@ -63,6 +67,11 @@ public class ToolBar  extends JPanel
 
         //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
+        newDataItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textArea.setText("");
+            }
+        });
 
         //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -73,8 +82,8 @@ public class ToolBar  extends JPanel
 
             try
             {
-                File file = fileChooser.getSelectedFile(); //Create selectFile
-                String filename = file.getAbsolutePath(); //Create Filename String for path
+                File file = fileChooser.getSelectedFile();
+                String filename = file.getAbsolutePath();
                 FileReader fileReader = new FileReader(filename);
                 BufferedReader bufferedReader = new BufferedReader(fileReader);
                 textArea.read(bufferedReader,null);
@@ -95,7 +104,7 @@ public class ToolBar  extends JPanel
 
             try
             {
-                FileWriter fileWriter = new FileWriter("C:\\Users\\Mark.Davis\\Desktop\\TestFile.txt");
+                FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
                 textArea.write(bufferedWriter);
                 bufferedWriter.close();
