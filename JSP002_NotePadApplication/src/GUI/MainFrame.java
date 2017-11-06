@@ -1,5 +1,10 @@
 package GUI;
 
+import com.inet.jortho.FileUserDictionary;
+import com.inet.jortho.PopupListener;
+import com.inet.jortho.SpellChecker;
+import com.inet.jortho.SpellCheckerOptions;
+
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
@@ -50,6 +55,9 @@ public class MainFrame extends JFrame
 
         //Add Main Text Area to JFrame
         MainTextArea();
+        //Initialize auto-dictionary
+        dictionaryInitialization();
+        spellCheckerOptions();
 
         //Set all above visible and packs.
         pack();
@@ -77,5 +85,31 @@ public class MainFrame extends JFrame
         Border border = BorderFactory.createLineBorder(Color.BLACK);
         scroll.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(2,2,2,2)));
 
+    }
+
+    ////Dictionary Menu////
+    private void dictionaryInitialization ()
+    {
+        //FILE LOCATION OF DICTIONARY
+        String userDictionaryPath = "src\\model\\dictionary\\";
+        //SET DICTIONARY PROVIDER FROM DICTIONARY PATH
+        SpellChecker.setUserDictionaryProvider(new FileUserDictionary(userDictionaryPath));
+        //REGISTER DICTIONARY
+        SpellChecker.registerDictionaries(getClass().getResource(userDictionaryPath), "en");
+        //REGISTER JTEXTAREA TO SPELLCHECKER.
+        SpellChecker.register(textArea);
+    }
+
+    private void spellCheckerOptions()
+    {
+        SpellCheckerOptions spellCheckerOptions = new SpellCheckerOptions();
+        spellCheckerOptions.setCaseSensitive(false);
+        spellCheckerOptions.setSuggestionsLimitMenu(10);
+        spellCheckerOptions.setLanguageDisableVisible(false);
+        spellCheckerOptions.setIgnoreAllCapsWords(true);
+        spellCheckerOptions.setIgnoreWordsWithNumbers(true);
+        JPopupMenu popupMenu = SpellChecker.createCheckerPopup(spellCheckerOptions);
+
+        textArea.addMouseListener(new PopupListener(popupMenu));
     }
 }

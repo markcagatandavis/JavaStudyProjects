@@ -1,5 +1,7 @@
 package GUI;
 
+import com.inet.jortho.FileUserDictionary;
+import com.inet.jortho.SpellChecker;
 import com.ozten.font.JFontChooser;
 
 import javax.swing.*;
@@ -7,7 +9,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.awt.print.PageFormat;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
@@ -22,11 +23,8 @@ public class ToolBar  extends JMenuBar
 
     public JMenuBar createMenuBar ()
     {
-
         JMenuBar menuBar = new JMenuBar(); //Create menu bar Instances
-
         fileChooser = new JFileChooser(); //Create generic fileChooser
-
 
         /////////////////Create File Menu///////////////////////////////
         JMenu fileMenu = new JMenu("File");
@@ -48,9 +46,10 @@ public class ToolBar  extends JMenuBar
         /////////////////Create font Menu///////////////////////////////
         JMenu formatmenu = new JMenu("Format");
 
-        JMenuItem fontMenu = new JMenuItem("Font");
+        JMenuItem fontMenuItem = new JMenuItem("Font");
 
-        formatmenu.add(fontMenu);
+        formatmenu.add(fontMenuItem);
+
         ////////////////Create Settings Menu////////////////////////////
         JMenu settingsMenu = new JMenu("Settings");
 
@@ -162,8 +161,8 @@ public class ToolBar  extends JMenuBar
         });
 
         ////Font Menu////
-        fontMenu.setMnemonic(KeyEvent.VK_T);
-        fontMenu.addActionListener(e -> {
+        fontMenuItem.setMnemonic(KeyEvent.VK_T);
+        fontMenuItem.addActionListener(e -> {
 
             JFontChooser fontChooser = new JFontChooser();
             JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
@@ -182,7 +181,7 @@ public class ToolBar  extends JMenuBar
         menuBar.add(formatmenu);
         menuBar.add(settingsMenu);
         menuBar.add(windowMenu);
-        
+
         return menuBar;
     }
 }
