@@ -94,7 +94,7 @@ public class ToolBar  extends JMenuBar
             }
             catch(Exception ev)
             {
-                JOptionPane.showMessageDialog(null,ev);
+                System.out.println("DBUG: Open File either cancelled or error on open.");
             }
         });
 
@@ -115,7 +115,7 @@ public class ToolBar  extends JMenuBar
             }
             catch(Exception ev)
             {
-                JOptionPane.showMessageDialog(null,ev);
+                System.out.println("DBUG: Save file either cancelled or error on save.");
             }
         });
 

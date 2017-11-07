@@ -79,12 +79,10 @@ public class MainFrame extends JFrame
         //Add scroll pane
         JScrollPane scroll = new JScrollPane(textArea);
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+        scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
         scroll.setVisible(true);
         add(scroll);
-
-        Border border = BorderFactory.createLineBorder(Color.BLACK);
-        scroll.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(1,1,1,1)));
-
     }
 
     ////Dictionary Menu////
