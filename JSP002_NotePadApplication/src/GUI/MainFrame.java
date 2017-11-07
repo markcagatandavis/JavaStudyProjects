@@ -83,7 +83,7 @@ public class MainFrame extends JFrame
         add(scroll);
 
         Border border = BorderFactory.createLineBorder(Color.BLACK);
-        scroll.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(2,2,2,2)));
+        scroll.setBorder(BorderFactory.createCompoundBorder(border, BorderFactory.createEmptyBorder(1,1,1,1)));
 
     }
 
