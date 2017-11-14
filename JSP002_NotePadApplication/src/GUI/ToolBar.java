@@ -1,13 +1,10 @@
 package GUI;
 
-import com.inet.jortho.FileUserDictionary;
-import com.inet.jortho.SpellChecker;
 import com.ozten.font.JFontChooser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
