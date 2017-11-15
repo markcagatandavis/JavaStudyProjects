@@ -8,6 +8,7 @@ import com.inet.jortho.SpellCheckerOptions;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
+import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
@@ -15,6 +16,7 @@ public class MainFrame extends JFrame
 {
     private ToolBar toolBar;
     public static JTextArea textArea;
+    public static JTabbedPane tabbedPane;
     private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public MainFrame()
@@ -43,7 +45,7 @@ public class MainFrame extends JFrame
             }
         });
         setResizable(true);
-        getContentPane().setBackground(Color.BLACK);
+        getContentPane().setBackground(Color.LIGHT_GRAY);
         setMinimumSize(new Dimension(800,800));
         setLocationRelativeTo(null);
 
@@ -53,6 +55,7 @@ public class MainFrame extends JFrame
 
         //Add Main Text Area to JFrame
         MainTextArea();
+
         //Initialize auto-dictionary
         dictionaryInitialization();
         spellCheckerOptions();
@@ -80,7 +83,11 @@ public class MainFrame extends JFrame
         Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
         scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
         scroll.setVisible(true);
-        add(scroll);
+
+        tabbedPane = new JTabbedPane();
+        tabbedPane.addTab("New Document", scroll);
+
+        add(tabbedPane);
     }
 
     ////Dictionary Menu////

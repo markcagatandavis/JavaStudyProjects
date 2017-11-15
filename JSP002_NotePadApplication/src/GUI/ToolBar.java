@@ -3,20 +3,24 @@ package GUI;
 import com.ozten.font.JFontChooser;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.print.Printable;
 import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
 
+import static GUI.MainFrame.tabbedPane;
 import static GUI.MainFrame.textArea;
 
 //This class is responsible for the toolbar
 public class ToolBar  extends JMenuBar
 {
     private JFileChooser fileChooser;
+    private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public JMenuBar createMenuBar ()
     {
@@ -58,10 +62,10 @@ public class ToolBar  extends JMenuBar
         JMenu windowMenu = new JMenu("Window");
         JMenu showMenu = new JMenu("Show");
 
-        JMenuItem showFormItem = new JMenuItem("Tab Pane");
+        JMenuItem showTabItem = new JMenuItem("Tab Pane");
 
         windowMenu.add(showMenu);
-        showMenu.add(showFormItem);
+        showMenu.add(showTabItem);
 
         /////////////////Adding Mnemonic's & Accelerator's////////////////////////////////
         ////File Menu////
@@ -70,7 +74,25 @@ public class ToolBar  extends JMenuBar
 
         //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        newDataItem.addActionListener(e -> textArea.setText(""));
+        newDataItem.addActionListener(e -> {
+
+            textArea = new JTextArea();
+            textArea.setFont(defaultFont);
+            textArea.setBackground(Color.white);
+            textArea.setEditable(true);
+            textArea.setLineWrap(true);
+            textArea.setVisible(true);
+
+            //Add scroll pane
+            JScrollPane scroll = new JScrollPane(textArea);
+            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+            Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+            scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
+            scroll.setVisible(true);
+
+            tabbedPane.addTab("New Document", scroll);
+        });
+
 
         //Open File
         openDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
@@ -172,6 +194,13 @@ public class ToolBar  extends JMenuBar
 
         ////Windows Menu////
         windowMenu.setMnemonic(KeyEvent.VK_W);
+
+        showTabItem.addActionListener(new ActionListener() {
+
+            public void actionPerformed(ActionEvent e) {
+               ;
+            }
+        });
 
         /////////////////Add Menu to JPanel/////////////////////////////
         menuBar.add(fileMenu);
