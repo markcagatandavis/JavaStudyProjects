@@ -13,13 +13,11 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
 
-import static GUI.MainFrame.tabbedPane;
-import static GUI.MainFrame.textArea;
-
 //This class is responsible for the toolbar
 public class ToolBar  extends JMenuBar
 {
     private JFileChooser fileChooser;
+    private TabbedPane tabbedPane;
     private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public JMenuBar createMenuBar ()
@@ -74,23 +72,8 @@ public class ToolBar  extends JMenuBar
 
         //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        newDataItem.addActionListener(e -> {
-
-            textArea = new JTextArea();
-            textArea.setFont(defaultFont);
-            textArea.setBackground(Color.white);
-            textArea.setEditable(true);
-            textArea.setLineWrap(true);
-            textArea.setVisible(true);
-
-            //Add scroll pane
-            JScrollPane scroll = new JScrollPane(textArea);
-            scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-            Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
-            scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
-            scroll.setVisible(true);
-
-            tabbedPane.addTab("New Document", scroll);
+        newDataItem.addActionListener((ActionEvent e) -> {
+          tabbedPane.newTab();
         });
 
 
@@ -101,20 +84,20 @@ public class ToolBar  extends JMenuBar
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
 
-            try
-            {
-                File file = fileChooser.getSelectedFile();
-                String filename = file.getAbsolutePath();
-                FileReader fileReader = new FileReader(filename);
-                BufferedReader bufferedReader = new BufferedReader(fileReader);
-                textArea.read(bufferedReader,null);
-                bufferedReader.close();
-                textArea.requestFocus();
-            }
-            catch(Exception ev)
-            {
-                System.out.println("DBUG: Open File either cancelled or error on open.");
-            }
+//            try
+//            {
+//                File file = fileChooser.getSelectedFile();
+//                String filename = file.getAbsolutePath();
+//                FileReader fileReader = new FileReader(filename);
+//                BufferedReader bufferedReader = new BufferedReader(fileReader);
+//                textArea.read(bufferedReader,null);
+//                bufferedReader.close();
+//                textArea.requestFocus();
+//            }
+//            catch(Exception ev)
+//            {
+//                System.out.println("DBUG: Open File either cancelled or error on open.");
+//            }
         });
 
         //Save File
@@ -123,19 +106,19 @@ public class ToolBar  extends JMenuBar
             if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
 
-            try
-            {
-                FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
-                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                textArea.write(bufferedWriter);
-                bufferedWriter.close();
-                textArea.setText("");
-                textArea.requestFocus();
-            }
-            catch(Exception ev)
-            {
-                System.out.println("DBUG: Save file either cancelled or error on save.");
-            }
+//            try
+//            {
+//                FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
+//                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+//                textArea.write(bufferedWriter);
+//                bufferedWriter.close();
+//                textArea.setText("");
+//                textArea.requestFocus();
+//            }
+//            catch(Exception ev)
+//            {
+//                System.out.println("DBUG: Save file either cancelled or error on save.");
+//            }
         });
 
         //Print File
@@ -145,14 +128,14 @@ public class ToolBar  extends JMenuBar
             PrinterJob printJob = PrinterJob.getPrinterJob();
             printJob.setJobName(" Print Component ");
 
-            printJob.setPrintable ((pg, pf, pageNum) -> {
-                if (pageNum > 0) return Printable.NO_SUCH_PAGE;
-
-                Graphics2D g2 = (Graphics2D) pg;
-                g2.translate(pf.getImageableX(), pf.getImageableY());
-                textArea.paint(g2);
-                return Printable.PAGE_EXISTS;
-            });
+//            printJob.setPrintable ((pg, pf, pageNum) -> {
+//                if (pageNum > 0) return Printable.NO_SUCH_PAGE;
+//
+//                Graphics2D g2 = (Graphics2D) pg;
+//                g2.translate(pf.getImageableX(), pf.getImageableY());
+//                textArea.paint(g2);
+//                return Printable.PAGE_EXISTS;
+//            });
 
             if (printJob.printDialog() == false) return;
 
@@ -181,12 +164,12 @@ public class ToolBar  extends JMenuBar
 
         ////Font Menu////
         fontMenuItem.setMnemonic(KeyEvent.VK_T);
-        fontMenuItem.addActionListener(e -> {
-
-            JFontChooser fontChooser = new JFontChooser();
-            JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
-            textArea.setFont(fontChooser.getPreviewFont());
-        });
+//        fontMenuItem.addActionListener(e -> {
+//
+//            JFontChooser fontChooser = new JFontChooser();
+//            JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
+//            textArea.setFont(fontChooser.getPreviewFont());
+//        });
 
         ////Settings Menu////
         settingsMenu.setMnemonic(KeyEvent.VK_S);
