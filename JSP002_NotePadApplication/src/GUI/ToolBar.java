@@ -3,7 +3,6 @@ package GUI;
 import com.ozten.font.JFontChooser;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -13,12 +12,12 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
 
+import static GUI.TabbedPane.textArea;
+
 //This class is responsible for the toolbar
 public class ToolBar  extends JMenuBar
 {
     private JFileChooser fileChooser;
-    private TabbedPane tabbedPane;
-    private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
 
     public JMenuBar createMenuBar ()
     {
@@ -72,8 +71,14 @@ public class ToolBar  extends JMenuBar
 
         //New File
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
-        newDataItem.addActionListener((ActionEvent e) -> {
-          tabbedPane.newTab();
+        newDataItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                //NEED TO FIX THIS
+
+                //NOTE TO SELF: Maybe add TextArea into it's own class with dictionary etc constructors
+            }
         });
 
 
@@ -84,20 +89,22 @@ public class ToolBar  extends JMenuBar
             if (fileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
 
-//            try
-//            {
-//                File file = fileChooser.getSelectedFile();
-//                String filename = file.getAbsolutePath();
-//                FileReader fileReader = new FileReader(filename);
-//                BufferedReader bufferedReader = new BufferedReader(fileReader);
-//                textArea.read(bufferedReader,null);
-//                bufferedReader.close();
-//                textArea.requestFocus();
-//            }
-//            catch(Exception ev)
-//            {
-//                System.out.println("DBUG: Open File either cancelled or error on open.");
-//            }
+            try
+            {
+                File file = fileChooser.getSelectedFile();
+                String filename = file.getAbsolutePath();
+                FileReader fileReader = new FileReader(filename);
+                BufferedReader bufferedReader = new BufferedReader(fileReader);
+                textArea.read(bufferedReader,null);
+                bufferedReader.close();
+                textArea.requestFocus();
+            }
+
+
+            catch(Exception ev)
+            {
+                System.out.println("DBUG: Open File either cancelled or error on open.");
+            }
         });
 
         //Save File
@@ -106,19 +113,19 @@ public class ToolBar  extends JMenuBar
             if (fileChooser.showSaveDialog(null) == JFileChooser.APPROVE_OPTION);
             System.out.println(fileChooser.getSelectedFile());
 
-//            try
-//            {
-//                FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
-//                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-//                textArea.write(bufferedWriter);
-//                bufferedWriter.close();
-//                textArea.setText("");
-//                textArea.requestFocus();
-//            }
-//            catch(Exception ev)
-//            {
-//                System.out.println("DBUG: Save file either cancelled or error on save.");
-//            }
+            try
+            {
+                FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
+                BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+                textArea.write(bufferedWriter);
+                bufferedWriter.close();
+                textArea.setText("");
+                textArea.requestFocus();
+            }
+            catch(Exception ev)
+            {
+                System.out.println("DBUG: Save file either cancelled or error on save.");
+            }
         });
 
         //Print File
@@ -128,14 +135,14 @@ public class ToolBar  extends JMenuBar
             PrinterJob printJob = PrinterJob.getPrinterJob();
             printJob.setJobName(" Print Component ");
 
-//            printJob.setPrintable ((pg, pf, pageNum) -> {
-//                if (pageNum > 0) return Printable.NO_SUCH_PAGE;
-//
-//                Graphics2D g2 = (Graphics2D) pg;
-//                g2.translate(pf.getImageableX(), pf.getImageableY());
-//                textArea.paint(g2);
-//                return Printable.PAGE_EXISTS;
-//            });
+            printJob.setPrintable ((pg, pf, pageNum) -> {
+                if (pageNum > 0) return Printable.NO_SUCH_PAGE;
+
+                Graphics2D g2 = (Graphics2D) pg;
+                g2.translate(pf.getImageableX(), pf.getImageableY());
+                textArea.paint(g2);
+                return Printable.PAGE_EXISTS;
+            });
 
             if (printJob.printDialog() == false) return;
 
@@ -164,12 +171,12 @@ public class ToolBar  extends JMenuBar
 
         ////Font Menu////
         fontMenuItem.setMnemonic(KeyEvent.VK_T);
-//        fontMenuItem.addActionListener(e -> {
-//
-//            JFontChooser fontChooser = new JFontChooser();
-//            JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
-//            textArea.setFont(fontChooser.getPreviewFont());
-//        });
+        fontMenuItem.addActionListener(e -> {
+
+            JFontChooser fontChooser = new JFontChooser();
+            JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
+            textArea.setFont(fontChooser.getPreviewFont());
+        });
 
         ////Settings Menu////
         settingsMenu.setMnemonic(KeyEvent.VK_S);

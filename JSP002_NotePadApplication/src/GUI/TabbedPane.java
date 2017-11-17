@@ -10,7 +10,7 @@ import com.inet.jortho.SpellCheckerOptions;
 
 public class TabbedPane extends JPanel
 {
-    private JTextArea textArea;
+    public static JTextArea textArea;
     private JTabbedPane tabbedPane;
     private JScrollPane scroll;
     private Font defaultFont = new Font("Times New Roman", Font.PLAIN, 16);
@@ -59,10 +59,10 @@ public class TabbedPane extends JPanel
         add(tabbedPane, BorderLayout.CENTER);
     }
 
-    public void newTab ()
+    public void newTab (JScrollPane tempScrollPane)
     {
-//        textArea();
-//        setTabbedPane(scroll);
+        tabbedPane.addTab("New Document", tempScrollPane);
+        add(tabbedPane, BorderLayout.CENTER);
     }
 
 
