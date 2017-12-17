@@ -1,14 +1,16 @@
 package GUI;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 
 
 public class TabbedPane extends JPanel
 {
-
-    private JTabbedPane tabbedPane = new JTabbedPane();
-    private MainTextArea mainTextArea = new MainTextArea();
+    JTabbedPane tabbedPane = new JTabbedPane();
+    MainTextArea mainTextArea = new MainTextArea();
+    private JScrollPane scroll;
+    private JTextArea tempGetTextArea = mainTextArea.getTextArea();
 
     public TabbedPane ()
     {
@@ -16,13 +18,27 @@ public class TabbedPane extends JPanel
         setLayout(new BorderLayout());
 
         //Initialize JTabbedPane and pass through JScrollPane from text area method.
-       setTabbedPane(mainTextArea.setScroll());
-
+        add(tabbedPane, BorderLayout.CENTER);
+        addTabbedPane();
     }
 
-    public void setTabbedPane(JScrollPane tempScrollPane)
+    public void addTabbedPane() {
+        JScrollPane scroll = createScrollPane();
+        tabbedPane.addTab("New Document", scroll);
+    }
+
+    public JScrollPane createScrollPane()
     {
-        tabbedPane.addTab("New Document", tempScrollPane);
-        add(tabbedPane, BorderLayout.CENTER);
+        /*
+         * Adding scroll pane into it's own method so it can be called in other classes
+         */
+        //Add scroll pane
+        scroll = new JScrollPane(tempGetTextArea);
+        scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
+        scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
+        scroll.setVisible(true);
+
+        return scroll;
     }
 }

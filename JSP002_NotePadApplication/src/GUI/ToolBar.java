@@ -1,10 +1,9 @@
 package GUI;
 
 import com.ozten.font.JFontChooser;
-import sun.applet.Main;
+
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,12 +13,15 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
 
+import static GUI.MainTextArea.textArea;
+
+
 //This class is responsible for the toolbar
-public class ToolBar  extends JMenuBar
+public class ToolBar
 {
-    private JFileChooser fileChooser;
-    private MainTextArea mainTextArea;
-    private TabbedPane tabbedPane;
+    JFileChooser fileChooser;
+    MainTextArea mainTextArea = new MainTextArea();
+    JTextArea tempGetTextArea = mainTextArea.getTextArea();
 
     public JMenuBar createMenuBar ()
     {
@@ -67,6 +69,7 @@ public class ToolBar  extends JMenuBar
         showMenu.add(showTabItem);
 
         /////////////////Adding Mnemonic's & Accelerator's////////////////////////////////
+
         ////File Menu////
         formatmenu.setMnemonic(KeyEvent.VK_O);
         fileMenu.setMnemonic(KeyEvent.VK_F);
@@ -75,12 +78,6 @@ public class ToolBar  extends JMenuBar
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         newDataItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
-
-                //NOTE TO SELF: NEED TO TRY AND GET THIS WORKING.
-                JScrollPane testScroll = mainTextArea.setScroll();
-
-                tabbedPane.setTabbedPane(testScroll);
 
             }
         });
@@ -100,9 +97,9 @@ public class ToolBar  extends JMenuBar
                     String filename = file.getAbsolutePath();
                     FileReader fileReader = new FileReader(filename);
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    mainTextArea.textArea.read(bufferedReader, null);
+                    tempGetTextArea.read(bufferedReader, null);
                     bufferedReader.close();
-                    mainTextArea.textArea.requestFocus();
+                    tempGetTextArea.requestFocus();
                 } catch (Exception ev) {
                     System.out.println("DBUG: Open File either cancelled or error on open.");
                 }
@@ -119,10 +116,10 @@ public class ToolBar  extends JMenuBar
             {
                 FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                mainTextArea.textArea.write(bufferedWriter);
+                tempGetTextArea.write(bufferedWriter);
                 bufferedWriter.close();
-                mainTextArea.textArea.setText("");
-                mainTextArea.textArea.requestFocus();
+                tempGetTextArea.setText("");
+                tempGetTextArea.requestFocus();
             }
             catch(Exception ev)
             {
@@ -142,7 +139,7 @@ public class ToolBar  extends JMenuBar
 
                 Graphics2D g2 = (Graphics2D) pg;
                 g2.translate(pf.getImageableX(), pf.getImageableY());
-                mainTextArea.textArea.paint(g2);
+                tempGetTextArea.paint(g2);
                 return Printable.PAGE_EXISTS;
             });
 
@@ -177,7 +174,7 @@ public class ToolBar  extends JMenuBar
 
             JFontChooser fontChooser = new JFontChooser();
             JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
-            mainTextArea.textArea.setFont(fontChooser.getPreviewFont());
+            tempGetTextArea.setFont(fontChooser.getPreviewFont());
         });
 
         ////Settings Menu////
