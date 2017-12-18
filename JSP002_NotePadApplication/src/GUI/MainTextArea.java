@@ -42,10 +42,6 @@ public class MainTextArea extends JScrollPane {
         return textArea;
     }
 
-    public static void setTextArea(JTextArea textArea) {
-        MainTextArea.textArea = textArea;
-    }
-
     //Dictionary Menu////
     private void dictionaryInitialization ()
     {

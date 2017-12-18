@@ -13,15 +13,11 @@ import java.awt.print.PrinterException;
 import java.awt.print.PrinterJob;
 import java.io.*;
 
-import static GUI.MainTextArea.textArea;
-
-
 //This class is responsible for the toolbar
 public class ToolBar
 {
     JFileChooser fileChooser;
     MainTextArea mainTextArea = new MainTextArea();
-    JTextArea tempGetTextArea = mainTextArea.getTextArea();
 
     public JMenuBar createMenuBar ()
     {
@@ -97,9 +93,9 @@ public class ToolBar
                     String filename = file.getAbsolutePath();
                     FileReader fileReader = new FileReader(filename);
                     BufferedReader bufferedReader = new BufferedReader(fileReader);
-                    tempGetTextArea.read(bufferedReader, null);
+                    mainTextArea.getTextArea().read(bufferedReader, null);
                     bufferedReader.close();
-                    tempGetTextArea.requestFocus();
+                    mainTextArea.getTextArea().requestFocus();
                 } catch (Exception ev) {
                     System.out.println("DBUG: Open File either cancelled or error on open.");
                 }
@@ -116,10 +112,10 @@ public class ToolBar
             {
                 FileWriter fileWriter = new FileWriter(fileChooser.getSelectedFile() + ".txt");
                 BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-                tempGetTextArea.write(bufferedWriter);
+                mainTextArea.getTextArea().write(bufferedWriter);
                 bufferedWriter.close();
-                tempGetTextArea.setText("");
-                tempGetTextArea.requestFocus();
+                mainTextArea.getTextArea().setText("");
+                mainTextArea.getTextArea().requestFocus();
             }
             catch(Exception ev)
             {
@@ -139,7 +135,7 @@ public class ToolBar
 
                 Graphics2D g2 = (Graphics2D) pg;
                 g2.translate(pf.getImageableX(), pf.getImageableY());
-                tempGetTextArea.paint(g2);
+                mainTextArea.getTextArea().paint(g2);
                 return Printable.PAGE_EXISTS;
             });
 
@@ -174,7 +170,7 @@ public class ToolBar
 
             JFontChooser fontChooser = new JFontChooser();
             JOptionPane.showMessageDialog(null, fontChooser, "Font Options", JOptionPane.PLAIN_MESSAGE);
-            tempGetTextArea.setFont(fontChooser.getPreviewFont());
+            mainTextArea.getTextArea().setFont(fontChooser.getPreviewFont());
         });
 
         ////Settings Menu////
