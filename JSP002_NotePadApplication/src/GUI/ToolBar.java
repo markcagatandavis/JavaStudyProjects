@@ -74,7 +74,9 @@ public class ToolBar
         newDataItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         newDataItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-
+                TabbedPane tabbedPane = new TabbedPane();
+                tabbedPane.addTabbedPane();
+                System.out.println("Reaching end of method");
             }
         });
 

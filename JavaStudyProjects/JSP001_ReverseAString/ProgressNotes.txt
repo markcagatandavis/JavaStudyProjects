@@ -1,5 +1,0 @@
-04/10/2017
-
-Goal: 
-Create a simple application that captures the users input and when submited,
-the input is reversed and displayed on the screen.

@@ -10,7 +10,7 @@ import java.awt.*;
 
 public class MainTextArea extends JScrollPane {
 
-    public static JTextArea textArea;
+    static JTextArea textArea;
 
     public MainTextArea()
     {

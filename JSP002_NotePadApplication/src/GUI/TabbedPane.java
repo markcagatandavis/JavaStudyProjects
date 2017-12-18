@@ -9,8 +9,6 @@ public class TabbedPane extends JPanel
 {
     JTabbedPane tabbedPane = new JTabbedPane();
     MainTextArea mainTextArea = new MainTextArea();
-    private JScrollPane scroll;
-    private JTextArea tempGetTextArea = mainTextArea.getTextArea();
 
     public TabbedPane ()
     {
@@ -20,20 +18,18 @@ public class TabbedPane extends JPanel
         //Initialize JTabbedPane and pass through JScrollPane from text area method.
         add(tabbedPane, BorderLayout.CENTER);
         addTabbedPane();
+        addTabbedPane();
     }
 
     public void addTabbedPane() {
-        JScrollPane scroll = createScrollPane();
-        tabbedPane.addTab("New Document", scroll);
+        JScrollPane tempScroll = createScrollPane();
+        tabbedPane.addTab("New Document", tempScroll);
     }
 
     public JScrollPane createScrollPane()
     {
-        /*
-         * Adding scroll pane into it's own method so it can be called in other classes
-         */
         //Add scroll pane
-        scroll = new JScrollPane(tempGetTextArea);
+        JScrollPane scroll = new JScrollPane(mainTextArea.getTextArea());
         scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
         Border scrollBorder = BorderFactory.createLineBorder(Color.LIGHT_GRAY);
         scroll.setBorder(BorderFactory.createCompoundBorder(scrollBorder, BorderFactory.createEmptyBorder(1,1,1,1)));
