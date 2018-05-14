@@ -7,8 +7,8 @@ import java.awt.*;
 
 public class TabbedPane extends JPanel
 {
-    JTabbedPane tabbedPane = new JTabbedPane();
-    MainTextArea mainTextArea = new MainTextArea();
+    private JTabbedPane tabbedPane = new JTabbedPane();
+    private MainTextArea mainTextArea = new MainTextArea();
 
     public TabbedPane ()
     {
@@ -17,7 +17,6 @@ public class TabbedPane extends JPanel
 
         //Initialize JTabbedPane and pass through JScrollPane from text area method.
         add(tabbedPane, BorderLayout.CENTER);
-        addTabbedPane();
         addTabbedPane();
     }
 

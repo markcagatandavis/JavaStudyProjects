@@ -8,7 +8,7 @@ import com.inet.jortho.SpellCheckerOptions;
 import javax.swing.*;
 import java.awt.*;
 
-public class MainTextArea extends JScrollPane {
+public class MainTextArea{
 
     static JTextArea textArea;
 
