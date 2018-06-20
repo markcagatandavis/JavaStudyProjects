@@ -1,6 +1,0 @@
-06/02/2018
-
-- Application is working
-- Current issue: Unable to create a New tab
-- Most likely need to refactor my code and isolate the JTextArea from the JScroll
-- For now, I will work on a new project until i can over come this
