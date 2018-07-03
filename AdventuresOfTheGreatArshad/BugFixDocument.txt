@@ -1,0 +1,42 @@
+02/10/2017
+
+BUG'S FIXED:
+- Resolved Issue: PendingEnterPress not pausing when first being called.
+- Resolved Issue: When pressing enter button, appends all following methods in ChapterOne.
+
+CODE CLEANUP:
+- Removed unneeded multithreading in NarratorReader Class.
+
+BUG'S DETECTED:
+- When pressing enter button, creates blank Enter Space on JTextArea.
+- When enter button is pressed, ActionListener for pendingEnterPress is executing multiple times.
+	DebugNotes: 
+		DEBUG: This is reaching inside ActionListener
+		DEBUG: Input Received, exiting while loop.
+		DEBUG: This is reaching inside ActionListener
+		DEBUG: Input Received, exiting while loop.
+
+NEED TO ADD:
+- Add Auto-Scroll, start of append text goes to top of JTextArea.
+
+Notes:
+- Looks like the PendingEnterPress method is being called and doing it's job of pausing thread till enterButton is pressed.
+- To resolve blank space on enter press, maybe declare state to null for NarratorReader.
+- ActionListener being executed multiple times might be due to time.seep in while loop.
+
+=======================================================================================
+
+03/10/2017
+
+Additional Work:
+- Add Old Man narrator reader
+- Add a setText and AppenedText for Narrator Readers
+- Started working on character profile class
+- Removed test text from ChapterOne class and applied proper text
+
+Need to Add:
+- Work out how to manage character profiles
+- Work out how to manage Enemy profiles
+
+- Need to fix bugs from 02/10/2017
+=======================================================================================
